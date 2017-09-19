@@ -6,8 +6,8 @@ import numpy
 pypuf_helper = Extension(
   'pypuf_helper',
   include_dirs=[
-    '/usr/local/include', numpy.get_include() + '/numpy', ],
-    # '/usr/include'],
+    '/usr/local/include', numpy.get_include() + '/numpy',
+    '/usr/include'],
   sources=[
     'pypuf_helper_src/python_wrapper.c',
     'pypuf_helper_src/eval_id_xor.c',
