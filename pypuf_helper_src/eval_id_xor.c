@@ -41,7 +41,7 @@ eval_id_xor(const int64_t* inputs, const double* weights,
 
     /* Perform the sign operation for each of the N challenges */
     if (*ret_ptr)
-        free(*ret_ptr)
+        free(*ret_ptr);
     *ret_ptr = malloc(N * sizeof(int64_t));
     for (uint64_t i = 0; i < N; i++) {
         if (*(tmp2_ptr + i) < 0)
