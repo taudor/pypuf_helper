@@ -27,6 +27,8 @@ eval(const int64_t* inputs, const double* weights,
     }
 
     /* Get the sign of the individual responses */
+    if (*ret_ptr)
+        free(*ret_ptr);
     *ret_ptr = malloc(N * k * sizeof(int64_t));
     for (uint64_t i = 0; i < N * k; i ++) {
         if (*(evaluated + i) < 0)
@@ -34,5 +36,5 @@ eval(const int64_t* inputs, const double* weights,
         else
             *(*ret_ptr + i) = (uint64_t) 1;
     }
-
+    free(evaluated);
 }

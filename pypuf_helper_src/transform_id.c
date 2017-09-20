@@ -10,6 +10,8 @@ transform_id(const int64_t* inputs,
           	 int64_t** ret_ptr)
 {
 	/* Allocate memory for the transformed challenges */
+    if (*ret_ptr)
+        free(*ret_ptr);
 	*ret_ptr = malloc(N * k * n * sizeof(int64_t));
 	/* Iterate through each challenge and transform it */
 	for (uint64_t i = 0; i < N; i++) {

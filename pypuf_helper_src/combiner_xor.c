@@ -10,6 +10,8 @@ combiner_xor(const int64_t* inputs,
              int64_t** ret_ptr)
 {
 	/* Allocate return array */
+    if (*ret_ptr)
+        free(*ret_ptr);
 	*ret_ptr = malloc(N * sizeof(int64_t));
 
 	/* Iterate through challenges and XOR them */
