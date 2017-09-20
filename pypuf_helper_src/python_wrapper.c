@@ -30,13 +30,13 @@ eval_id_xor_wrapper(PyObject *self, PyObject *args)
 
     //check if the array shapes match
     if (!(n_c - n_w))
-        return Py_BuildValue("i", -1);
+        return Py_BuildValue("i", -2);
     
     // get data from arrays
     int64_t* dptr_c = (int64_t*) (PyArray_DATA(challenges));
     double*  dptr_w = (double*) (PyArray_DATA(weights));
     // initialze return arrays
-    int64_t* res;
+    int64_t* res = NULL;
 
     // perform polynomial division
     eval_id_xor(dptr_c, dptr_w, n_w, k_w, N_c, &res);
@@ -87,7 +87,7 @@ eval_wrapper(PyObject *self, PyObject *args)
     int64_t* dptr_c = (int64_t*) (PyArray_DATA(challenges));
     double*  dptr_w = (double*) (PyArray_DATA(weights));
     // initialze return arrays
-    int64_t* res;
+    int64_t* res = NULL;
 
     // perform polynomial division
     eval(dptr_c, dptr_w, n_w, k_w, N_c, &res);
@@ -122,7 +122,7 @@ combiner_xor_wrapper(PyObject *self, PyObject *args)
     // get data from array
     int64_t* dptr_c = (int64_t*) (PyArray_DATA(challenges));
     // initialze return array
-    int64_t* res;
+    int64_t* res = NULL;
 
     // perform polynomial division
     combiner_xor(dptr_c, k, N, &res);
@@ -158,7 +158,7 @@ transform_id_wrapper(PyObject *self, PyObject *args)
     // get data from array
     int64_t* dptr_c = (int64_t*) (PyArray_DATA(challenges));
     // initialze return array
-    int64_t* res;
+    int64_t* res = NULL;
 
     // perform polynomial division
     transform_id(dptr_c, n, k, N, &res);
