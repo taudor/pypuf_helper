@@ -25,3 +25,5 @@ build/
 dist/
 MANIFEST
 
+pypuf_helper.egg-info/
+

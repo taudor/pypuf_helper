@@ -1,8 +1,8 @@
 #include <Python.h>
-#include <ndarraytypes.h>
-#include <ndarrayobject.h>
+#include <numpy/ndarraytypes.h>
+#include <numpy/ndarrayobject.h>
 
-#include "./include/pypuf_helper.h"
+#include "pypuf_helper.h"
 
 static PyObject* 
 eval_id_xor_wrapper(PyObject *self, PyObject *args)
