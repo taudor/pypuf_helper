@@ -29,7 +29,7 @@ eval_id_xor_wrapper(PyObject *self, PyObject *args)
     uint64_t n_w = *(dim_w + 1);
 
     //check if the array shapes match
-    if (!(n_c - n_w))
+    if (n_c - n_w)
         return Py_BuildValue("i", -2);
     
     // get data from arrays
@@ -78,9 +78,9 @@ eval_wrapper(PyObject *self, PyObject *args)
     uint64_t n_w = *(dim_w + 1);
 
     //check if the array shapes match
-    if ((n_c - n_w))
+    if (n_c - n_w)
         return Py_BuildValue("i", -2); // TODO what return value?
-    if ((k_c - k_w))
+    if (k_c - k_w)
         return Py_BuildValue("i", -2);
     
     // get data from arrays
