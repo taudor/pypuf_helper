@@ -4,7 +4,7 @@ from numpy.testing import assert_array_equal
 import pypuf_helper as ph
 
 
-class TestEval(unittest.TestCase):
+class TestEvalSign(unittest.TestCase):
 
     def test_01(self):
         input_test = array([
@@ -17,12 +17,12 @@ class TestEval(unittest.TestCase):
             [-0.7, 2.5, -1]
         ])
         evaluated = array([
-            [-1.,  0.8],
-            [1.4, -2.2],
-            [2., -4.2]])
+            [-1,  1],
+            [1, -1],
+            [1, -1]])
 
         assert_array_equal(
-            ph.eval(input_test, weights),
+            ph.eval_sign(input_test, weights),
             evaluated,
-            "Evaluation fails."
+            "Evaluation with sign fails."
         )

@@ -53,6 +53,57 @@ eval_id_xor_wrapper(PyObject *self, PyObject *args)
 }
 
 static PyObject* 
+eval_sign_wrapper(PyObject *self, PyObject *args)
+{
+    PyObject* in1;
+    PyObject* in2;
+    PyObject* challenges;
+    PyObject* weights;
+
+    // get arguments
+    PyArg_ParseTuple(args, "OO:", &in1, &in2);
+
+    // get np arrays
+    challenges = PyArray_FROM_OTF(in1, NPY_NOTYPE, NPY_IN_ARRAY);
+    weights = PyArray_FROM_OTF(in2, NPY_NOTYPE, NPY_IN_ARRAY);
+    // get dimension of inputs, i.e. N, k, n
+    uint64_t* dim_c = (uint64_t*) PyArray_DIMS(challenges);
+    uint64_t* dim_w = (uint64_t*) PyArray_DIMS(weights);
+
+    uint64_t N_c = *(dim_c);
+    uint64_t k_c = *(dim_c + 1);
+    uint64_t n_c = *(dim_c + 2);
+
+    uint64_t k_w = *(dim_w);
+    uint64_t n_w = *(dim_w + 1);
+
+    //check if the array shapes match
+    if (n_c - n_w)
+        return Py_BuildValue("i", -2); // TODO what return value?
+    if (k_c - k_w)
+        return Py_BuildValue("i", -2);
+    
+    // get data from arrays
+    int64_t* dptr_c = (int64_t*) (PyArray_DATA(challenges));
+    double*  dptr_w = (double*) (PyArray_DATA(weights));
+    // initialze return arrays
+    int64_t* res = NULL;
+
+    // perform polynomial division
+    eval_sign(dptr_c, dptr_w, n_w, k_w, N_c, &res);
+    // dimension of return array, i.e. the number of values
+    npy_intp dims[2] = {N_c, k_c};
+    // create new array to return
+    PyObject *ret = PyArray_SimpleNewFromData(2, dims, NPY_INT64, res);
+    // increment counter, so that the memory is not freed
+    Py_INCREF(ret);
+    // forward the responsibility of the free to numpy
+    PyArray_ENABLEFLAGS((PyArrayObject*)ret, NPY_ARRAY_OWNDATA);
+    
+    return ret;
+}
+
+static PyObject* 
 eval_wrapper(PyObject *self, PyObject *args)
 {
     PyObject* in1;
@@ -73,7 +124,7 @@ eval_wrapper(PyObject *self, PyObject *args)
     uint64_t N_c = *(dim_c);
     uint64_t k_c = *(dim_c + 1);
     uint64_t n_c = *(dim_c + 2);
-    // return Py_BuildValue("i", n_c);
+
     uint64_t k_w = *(dim_w);
     uint64_t n_w = *(dim_w + 1);
 
@@ -87,14 +138,14 @@ eval_wrapper(PyObject *self, PyObject *args)
     int64_t* dptr_c = (int64_t*) (PyArray_DATA(challenges));
     double*  dptr_w = (double*) (PyArray_DATA(weights));
     // initialze return arrays
-    int64_t* res = NULL;
+    double* res = NULL;
 
     // perform polynomial division
     eval(dptr_c, dptr_w, n_w, k_w, N_c, &res);
     // dimension of return array, i.e. the number of values
     npy_intp dims[2] = {N_c, k_c};
     // create new array to return
-    PyObject *ret = PyArray_SimpleNewFromData(2, dims, NPY_INT64, res);
+    PyObject *ret = PyArray_SimpleNewFromData(2, dims, NPY_DOUBLE, res);
     // increment counter, so that the memory is not freed
     Py_INCREF(ret);
     // forward the responsibility of the free to numpy
@@ -173,6 +224,28 @@ transform_id_wrapper(PyObject *self, PyObject *args)
     
     return ret;
 }
+
+PyDoc_STRVAR(
+    eval_sign_doc,
+    "eval_sign(challenges, weights)\n"
+    "--\n"
+    "The function eval takes as input a set of N transformed challenges\n"
+    "for an n-bit k-Arbiter PUF. That means that the input should have\n"
+    "shape (N, k, n). This set of challenges is evaluated with an\n"
+    "n-bit k-Arbiter PUF and the individual responses for each Aribter\n"
+    "Chain are created taking the sign of each response.\n\n"
+    "Parameters\n"
+    "----------\n"
+    "challenges : array_like\n"
+    "\tSet of already transformed challenges of shape (N, k, n).\n"
+    "weights: array_like\n"
+    "\tThe weight array of the k-Ariber PUF of shape (k, n).\n"
+    "Return\n"
+    "------\n"
+    "subresults: arral_like\n"
+    "\tEvaluated and signed results of the challenges for each Arbiter Chain.\n"
+    "\tHas shape (N, k).\n"
+    );
 
 PyDoc_STRVAR(
     eval_doc,
@@ -264,6 +337,7 @@ PyDoc_STRVAR(
 
 static PyMethodDef pypuf_helperMethods[] = {
     {"eval_id_xor",  eval_id_xor_wrapper, METH_VARARGS, eval_id_xor_doc},
+    {"eval_sign",  eval_sign_wrapper, METH_VARARGS, eval_sign_doc},
     {"eval",  eval_wrapper, METH_VARARGS, eval_doc},
     {"combiner_xor",  combiner_xor_wrapper, METH_VARARGS, combiner_xor_doc},
     {"transform_id",  transform_id_wrapper, METH_VARARGS, transform_id_doc},

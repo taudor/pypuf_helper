@@ -21,6 +21,7 @@ pypuf_helper = Extension(
     'pypuf_helper_src/python_wrapper.c',
     'pypuf_helper_src/eval_id_xor.c',
     'pypuf_helper_src/eval.c',
+    'pypuf_helper_src/eval_sign.c',
     'pypuf_helper_src/transform_id.c',
     'pypuf_helper_src/combiner_xor.c'
   ],
