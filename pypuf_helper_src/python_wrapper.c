@@ -176,15 +176,63 @@ transform_id_wrapper(PyObject *self, PyObject *args)
 
 PyDoc_STRVAR(
     eval_doc,
-    "TODO documentation of eval.\n");
+    "eval(challenges, weights)\n"
+    "--\n"
+    "The function eval takes as input a set of N transformed challenges\n"
+    "for an n-bit k-Arbiter PUF. That means that the input should have\n"
+    "shape (N, k, n). This set of challenges is evaluated with an\n"
+    "n-bit k-Arbiter PUF and the individual responses for each Aribter\n"
+    "Chain are created.\n\n"
+    "Parameters\n"
+    "----------\n"
+    "challenges : array_like\n"
+    "\tSet of already transformed challenges of shape (N, k, n).\n"
+    "weights: array_like\n"
+    "\tThe weight array of the k-Ariber PUF of shape (k, n).\n"
+    "Return\n"
+    "------\n"
+    "subresults: arral_like\n"
+    "\tEvaluated results of the challenges for each Arbiter Chain.\n"
+    "\tHas shape (N, k).\n"
+    );
 
 PyDoc_STRVAR(
     combiner_xor_doc,
-    "TODO documentation of combiner_xor.\n");
+    "combiner_xor(subresults)\n"
+    "--\n"
+    "The function takes a set of evaluated responses from the individual\n"
+    "Arbiter Chains of shape (N, k) and XORs the results to the final\n"
+    "result of the k-XOR Arbiter PUF.\n\n"
+    "Parameters\n"
+    "----------\n"
+    "subresults : array_like\n"
+    "\tSet of subresults of shape (N, k).\n"
+    "Return\n"
+    "------\n"
+    "evaluated_subresults: arral_like\n"
+    "\tXORed results of the subchallenges of shape (N).\n"
+    );
 
 PyDoc_STRVAR(
     transform_id_doc,
-    "TODO documentation of transform_id.\n");
+    "transform_id(challenges, k)\n"
+    "--\n\n"
+    "Transforms a set of N challenges of bitlength n into a set of\n"
+    "challenges for a k-Arbiter PUF, so that each subchallenge is\n"
+    "the same.\n"
+    "The result has shape (N, k, n).\n\n"
+    "Parameters\n"
+    "----------\n"
+    "challenges : array_like\n"
+    "\tSet of challenges of shape (N, n).\n"
+    "k : int\n"
+    "\tNumber of Arbiter Chains in the k-Arbiter PUF.\n"
+    "Return\n"
+    "------\n"
+    "transformed_challenges: arral_like\n"
+    "\tTransformed challenges with the id-transform. Each subchallenge is the\n"
+    "\tsame. The array has shape (N, k, n).\n"
+    );
 
 PyDoc_STRVAR(
     eval_id_xor_doc,
@@ -202,7 +250,8 @@ PyDoc_STRVAR(
     "challenges : array_like\n"
     "\tSet of challenges of shape (N, n).\n"
     "weights : array_like\n"
-    "\tWeight array of the k-XOR Aribter PUF. The array has shape (k, n).\n");
+    "\tWeight array of the k-XOR Aribter PUF. The array has shape (N).\n"
+    );
 
 PyDoc_STRVAR(
     pypuf_helper_doc,
