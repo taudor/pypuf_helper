@@ -250,7 +250,11 @@ PyDoc_STRVAR(
     "challenges : array_like\n"
     "\tSet of challenges of shape (N, n).\n"
     "weights : array_like\n"
-    "\tWeight array of the k-XOR Aribter PUF. The array has shape (N).\n"
+    "\tWeight array of the k-XOR Aribter PUF. The array has shape (k, n).\n"
+    "Return\n"
+    "------\n"
+    "evaluated_subresults: arral_like\n"
+    "\tEvaluated and XORed results of the challenges of shape (N).\n"
     );
 
 PyDoc_STRVAR(
