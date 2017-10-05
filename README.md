@@ -8,7 +8,7 @@ speed up critical parts of the [pypuf learning framework](https://github.com/nil
 The simplest way to install `pypuf_helper` is to use `pip`:
 
 ```
-pip install pypuf_helper
+pip3 install pypuf_helper
 ```
 
 If you want to install `pypuf_helper` from source, clone the repository and execute
