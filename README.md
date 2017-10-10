@@ -14,5 +14,10 @@ pip3 install pypuf_helper
 If you want to install `pypuf_helper` from source, clone the repository and execute
 
 ```
+pip3 install -r requirements.txt
 python3 setup.py install
 ```
+
+# Requiements
+
+`pypuf_helper` requires the module `numpy` for the installation and to work properly. If `numpy` is not installed, the installation via `pip3` also installs `numpy`. For the manual install it is recommended to install just `numpy` or to execute `pip3` to install from the `requirenments.txt`.
