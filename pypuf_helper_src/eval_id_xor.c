@@ -32,8 +32,6 @@ eval_id_xor(const int64_t* inputs, const double* weights,
     double* tmp2_ptr = malloc(N * sizeof(double));
     for (uint64_t i = 0; i < N; i++) {
         *(tmp2_ptr + i) = 1.0;
-    }
-    for (uint64_t i = 0; i < N; i++) {
         for (uint64_t j = 0; j < k; j++) {
             *(tmp2_ptr + i) *= *(tmp_ptr + i * k + j);
         }

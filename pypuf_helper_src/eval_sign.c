@@ -30,9 +30,9 @@ eval_sign(const int64_t* inputs, const double* weights,
     *ret_ptr = malloc(N * k * sizeof(int64_t));
     for (uint64_t i = 0; i < N * k; i ++) {
         if (*(evaluated + i) < 0)
-            *(*ret_ptr + i) = (uint64_t) -1;
+            *(*ret_ptr + i) = (int64_t) -1;
         else
-            *(*ret_ptr + i) = (uint64_t) 1;
+            *(*ret_ptr + i) = (int64_t) 1;
     }
     free(evaluated);
 }
