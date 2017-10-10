@@ -14,7 +14,7 @@ transform_id(const int64_t* inputs,
 	/* Iterate through each challenge and transform it */
 	for (uint64_t i = 0; i < N; i++) {
 		for (uint64_t j = 0; j < k; j++) {
-			memcpy(*ret_ptr + i * k * n + j * n,
+			memcpy((*ret_ptr) + i * k * n + j * n,
 				inputs + i * n, n * sizeof(int64_t));
 		}
 	}
