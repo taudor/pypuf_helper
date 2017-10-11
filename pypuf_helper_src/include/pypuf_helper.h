@@ -106,14 +106,17 @@ eval_sign(const int64_t* inputs, const double* weights,
  * result of the k-XOR Arbiter PUF.
  * 
  * Parameters
- * inputs  - Pointer to the evaluated challenges (shape: (N, k))
+ * inputs  - Pointer to the evaluated challenges (shape: (N, k)).
+ *           The challenges are not yet signed, i.e. the elements are
+ *           from R.
  * k 	   - Number of used Arbiter chains
  * N 	   - Number of challenges
  * ret_ptr - Address of the pointer that will contain the evaluated
- * 		     and combined challenges containing of -1, 1 (shape: (N)).
+ * 		     and combined challenges containing of elements from
+ *           R (shape: (N)).
  */
 void
-combiner_xor(const int64_t* inputs,
+combiner_xor(const double* inputs,
              uint64_t k, uint64_t N,
-             int64_t** ret_ptr);
+             double** ret_ptr);
 

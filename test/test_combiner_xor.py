@@ -6,15 +6,15 @@ import pypuf_helper as ph
 
 class TestCombinerXOR(unittest.TestCase):
 
-    def test_01(self):
+    def test_signed_inputs(self):
 
         input_test = array([
-            [1, -1,  1, 1],
-            [-1, -1,  1, 1],
-            [-1,  1, -1, 1],
-            [-1, -1,  1, -1]
+            [1., -1.,  1., 1.],
+            [-1., -1.,  1., 1.],
+            [-1.,  1., -1., 1.],
+            [-1., -1.,  1., -1.]
         ])
-        result = array([-1, 1, 1, -1])
+        result = array([-1., 1., 1., -1.])
         assert_array_equal(
             ph.combiner_xor(input_test),
             result,

@@ -179,16 +179,16 @@ combiner_xor_wrapper(PyObject *self, PyObject *args)
     uint64_t k = *(dim + 1);
     
     // get data from array
-    int64_t* dptr_c = (int64_t*) (PyArray_DATA(challenges));
+    double* dptr_c = (double*) (PyArray_DATA(challenges));
     // initialze return array
-    int64_t* res = NULL;
+    double* res = NULL;
 
     // perform polynomial division
     combiner_xor(dptr_c, k, N, &res);
     // dimension of return array, i.e. the number of values
     npy_intp dims[1] = {N};
     // create new array to return
-    PyObject *ret = PyArray_SimpleNewFromData(1, dims, NPY_INT64, res);
+    PyObject *ret = PyArray_SimpleNewFromData(1, dims, NPY_DOUBLE, res);
     // increment counter, so that the memory is not freed
     Py_INCREF(ret);
     // forward the responsibility of the free to numpy
@@ -283,15 +283,17 @@ PyDoc_STRVAR(
     "\n"
     "The function takes a set of evaluated responses from the individual\n"
     "Arbiter Chains of shape (N, k) and XORs the results to the final\n"
-    "result of the k-XOR Arbiter PUF.\n\n"
+    "result of the k-XOR Arbiter PUF. The function is build to work with\n"
+    "doubles, but can also be used just with -1,1 elements.\n\n"
     "Parameters\n"
     "----------\n"
     "subresults : array_like\n"
-    "\tSet of subresults of shape (N, k).\n"
+    "\tSet of subresults of shape (N, k). The subresults are not yet signed.\n"
     "Returns\n"
     "-------\n"
     "evaluated_subresults: ndarray\n"
-    "\tXORed results of the subchallenges of shape (N).\n"
+    "\tXORed results of the subchallenges of shape (N). \n"
+    "\tThe results are not signed, i.e. from R.\n"
     );
 
 PyDoc_STRVAR(

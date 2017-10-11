@@ -9,9 +9,9 @@ class TestCombinerXORNumpy(unittest.TestCase):
 
     def test_01(self):
         N = 1000
-        k = 10
+        k = 2
         random_instance = RandomState()
-        responses = array(random_instance.choice((-1, +1), (N, k)))
+        responses = array(random_instance.normal(loc=0, scale=1, size=(N, k)))
 
         ph_xor = ph.combiner_xor(responses)
         numpy_xor = prod(responses, 1)
