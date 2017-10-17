@@ -54,6 +54,8 @@ eval_id_xor_wrapper(PyObject *self, PyObject *args)
     PyObject *ret = PyArray_SimpleNewFromData(1, dims, NPY_INT64, res);
     // increment counter, so that the memory is not freed
     // Py_INCREF(ret);
+    Py_DECREF(challenges);
+    Py_DECREF(weights);
     // forward the responsibility of the free to numpy
     PyArray_ENABLEFLAGS((PyArrayObject*)ret, NPY_ARRAY_OWNDATA);
     
@@ -105,6 +107,8 @@ eval_sign_wrapper(PyObject *self, PyObject *args)
     PyObject *ret = PyArray_SimpleNewFromData(2, dims, NPY_INT64, res);
     // increment counter, so that the memory is not freed
     // Py_INCREF(ret);
+    Py_DECREF(challenges);
+    Py_DECREF(weights);
     // forward the responsibility of the free to numpy
     PyArray_ENABLEFLAGS((PyArrayObject*)ret, NPY_ARRAY_OWNDATA);
     
@@ -156,6 +160,8 @@ eval_wrapper(PyObject *self, PyObject *args)
     PyObject *ret = PyArray_SimpleNewFromData(2, dims, NPY_DOUBLE, res);
     // increment counter, so that the memory is not freed
     // Py_INCREF(ret);
+    Py_DECREF(challenges);
+    Py_DECREF(weights);
     // forward the responsibility of the free to numpy
     PyArray_ENABLEFLAGS((PyArrayObject*)ret, NPY_ARRAY_OWNDATA);
     
@@ -191,6 +197,7 @@ combiner_xor_wrapper(PyObject *self, PyObject *args)
     PyObject *ret = PyArray_SimpleNewFromData(1, dims, NPY_DOUBLE, res);
     // increment counter, so that the memory is not freed
     // Py_INCREF(ret);
+    Py_DECREF(challenges);
     // forward the responsibility of the free to numpy
     PyArray_ENABLEFLAGS((PyArrayObject*)ret, NPY_ARRAY_OWNDATA);
     
@@ -228,6 +235,7 @@ transform_id_wrapper(PyObject *self, PyObject *args)
     PyObject *ret = PyArray_SimpleNewFromData(3, dims, NPY_INT64, res);
     // increment counter, so that the memory is not freed
     // Py_INCREF(ret);
+    Py_DECREF(challenges);
     // forward the responsibility of the free to numpy
     PyArray_ENABLEFLAGS((PyArrayObject*)ret, NPY_ARRAY_OWNDATA);
     
