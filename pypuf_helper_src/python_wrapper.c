@@ -94,17 +94,17 @@ eval_sign_wrapper(PyObject *self, PyObject *args)
         return Py_BuildValue("i", -2);
     
     // get data from arrays
-    int64_t* dptr_c = (int64_t*) (PyArray_DATA(challenges));
+    int8_t* dptr_c = (int8_t*) (PyArray_DATA(challenges));
     double*  dptr_w = (double*) (PyArray_DATA(weights));
     // initialze return arrays
-    int64_t* res = NULL;
+    int8_t* res = NULL;
 
     // perform polynomial division
     eval_sign(dptr_c, dptr_w, n_w, k_w, N_c, &res);
     // dimension of return array, i.e. the number of values
     npy_intp dims[2] = {N_c, k_c};
     // create new array to return
-    PyObject *ret = PyArray_SimpleNewFromData(2, dims, NPY_INT64, res);
+    PyObject *ret = PyArray_SimpleNewFromData(2, dims, NPY_INT8, res);
     // increment counter, so that the memory is not freed
     // Py_INCREF(ret);
     Py_DECREF(challenges);
@@ -222,9 +222,9 @@ transform_id_wrapper(PyObject *self, PyObject *args)
     uint64_t n = *(dim + 1);
     
     // get data from array
-    int64_t* dptr_c = (int64_t*) (PyArray_DATA(challenges));
+    int8_t* dptr_c = (int8_t*) (PyArray_DATA(challenges));
     // initialze return array
-    int64_t* res = NULL;
+    int8_t* res = NULL;
 
     // perform polynomial division
     transform_id(dptr_c, n, k, N, &res);
@@ -232,7 +232,7 @@ transform_id_wrapper(PyObject *self, PyObject *args)
 
     npy_intp dims[3] = {N, k, n};
     // create new array to return
-    PyObject *ret = PyArray_SimpleNewFromData(3, dims, NPY_INT64, res);
+    PyObject *ret = PyArray_SimpleNewFromData(3, dims, NPY_INT8, res);
     // increment counter, so that the memory is not freed
     // Py_INCREF(ret);
     Py_DECREF(challenges);

@@ -5,9 +5,9 @@
 #include "./include/pypuf_helper.h"
 
 void
-eval_sign(const int64_t* inputs, const double* weights,
+eval_sign(const int8_t* inputs, const double* weights,
      uint64_t n, uint64_t k, uint64_t N,
-     int64_t** ret_ptr)
+     int8_t** ret_ptr)
 {
     /* Allocate space for the evaluated responses */
     double* evaluated = calloc(N * k, sizeof(double));
@@ -27,12 +27,12 @@ eval_sign(const int64_t* inputs, const double* weights,
     }
 
     /* Get the sign of the individual responses */
-    *ret_ptr = malloc(N * k * sizeof(int64_t));
+    *ret_ptr = malloc(N * k * sizeof(int8_t));
     for (uint64_t i = 0; i < N * k; i ++) {
         if (*(evaluated + i) < 0)
-            *(*ret_ptr + i) = (int64_t) -1;
+            *(*ret_ptr + i) = (int8_t) -1;
         else
-            *(*ret_ptr + i) = (int64_t) 1;
+            *(*ret_ptr + i) = (int8_t) 1;
     }
     free(evaluated);
 }

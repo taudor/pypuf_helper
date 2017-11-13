@@ -48,9 +48,9 @@ eval_id_xor(const int64_t* inputs, const double* weights,
  * 		     challenges containing of -1, 1 (shape: (N, k, n)).
  */
 void
-transform_id(const int64_t* inputs,
+transform_id(const int8_t* inputs,
           	 uint64_t n, uint64_t k, uint64_t N,
-          	 int64_t** ret_ptr);
+          	 int8_t** ret_ptr);
 
 /*
  * The function eval takes as input a set of N transformed challenges
@@ -72,7 +72,7 @@ transform_id(const int64_t* inputs,
  * 			 challenges.
  */
 void
-eval(const int64_t* inputs, const double* weights,
+eval(const int8_t* inputs, const double* weights,
      uint64_t n, uint64_t k, uint64_t N,
      double** ret_ptr);
 
@@ -96,9 +96,9 @@ eval(const int64_t* inputs, const double* weights,
  *           challenges.
  */
 void
-eval_sign(const int64_t* inputs, const double* weights,
+eval_sign(const int8_t* inputs, const double* weights,
      uint64_t n, uint64_t k, uint64_t N,
-     int64_t** ret_ptr);
+     int8_t** ret_ptr);
 
 /*
  * The function takes a set of evaluated responses from the individual
