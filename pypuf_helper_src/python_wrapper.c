@@ -147,7 +147,7 @@ eval_wrapper(PyObject *self, PyObject *args)
         return Py_BuildValue("i", -2);
     
     // get data from arrays
-    int64_t* dptr_c = (int64_t*) (PyArray_DATA(challenges));
+    int8_t* dptr_c = (int8_t*) (PyArray_DATA(challenges));
     double*  dptr_w = (double*) (PyArray_DATA(weights));
     // initialze return arrays
     double* res = NULL;
