@@ -1,5 +1,5 @@
 import unittest
-from numpy import array
+from numpy import array, int8
 from numpy.testing import assert_array_equal
 import pypuf_helper as ph
 
@@ -11,7 +11,7 @@ class TestEval(unittest.TestCase):
             [[1, -1, -1], [1,  1,  1]],
             [[-1, -1,  1], [1, -1, -1]],
             [[1, -1,  1], [1, -1,  1]]
-        ])
+        ], dtype=int8)
         weights = array([
             [0.3, -0.2, 1.5],
             [-0.7, 2.5, -1]

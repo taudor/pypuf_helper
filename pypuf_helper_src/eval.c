@@ -5,7 +5,7 @@
 #include "./include/pypuf_helper.h"
 
 void
-eval(const int64_t* inputs, const double* weights,
+eval(const int8_t* inputs, const double* weights,
      uint64_t n, uint64_t k, uint64_t N,
      double** ret_ptr)
 {
